@@ -3,12 +3,7 @@ import pipeAndFilter.Filter;
 import pipeAndFilter.Pipe; 
 public class TransactionProcessor extends Filter {
 	private Data data;
-    public TransactionProcessor(Pipe _dataINPipe, Pipe _dataOUTPipe ) {
-    	super(); 
-    	this._dataINPipe = _dataINPipe; 
-    	this._dataOUTPipe = _dataOUTPipe; 
-    }
-    
+
     public TransactionProcessor(Data data,Pipe _dataINPipe, Pipe _dataOUTPipe ) {
     	super(); 
     	this._dataINPipe = _dataINPipe; 
@@ -29,7 +24,7 @@ public class TransactionProcessor extends Filter {
 		newRentedItem.setDueDate(dueDate);
 		return true; 
 	}
-	public boolean UpdateClientSold (long clientID, float newSold) {
+	public boolean UpdateClientSold (long clientID, float amount) {
 		
 		return true; 
 	}
@@ -117,11 +112,14 @@ public class TransactionProcessor extends Filter {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+		execute(); 
 	}
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
+		while(true) {
+			
+		}
 		
 	}
 }

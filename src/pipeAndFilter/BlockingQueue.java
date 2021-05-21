@@ -21,4 +21,7 @@ public class BlockingQueue extends Pipe {
 			}
 	      return _inData.poll();
 	 }
+	 public boolean isEmpty () {
+		 return this._inData.isEmpty(); 
+	 }
 }

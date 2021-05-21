@@ -12,4 +12,7 @@ public class PipeQueue extends Pipe{
 	 public String dataOUT (){
 	      return _inData.poll();
 	 }
+	 public boolean isEmpty () {
+		 return this._inData.isEmpty(); 
+	 }
 }

@@ -1,12 +1,12 @@
 
 public class StockItem {
-	private int itemID;
+	private long itemID;
 	private float rentalPrice;
 	private String title;
-	public int getItemID() {
+	public long getItemID() {
 		return itemID;
 	}
-	public void setItemID(int itemID) {
+	public void setItemID(long itemID) {
 		this.itemID = itemID;
 	}
 	public float getRentalPrice() {
