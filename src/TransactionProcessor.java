@@ -1,6 +1,6 @@
 import java.util.*;
-import pipeAndFilter.Filter;
-import pipeAndFilter.Pipe; 
+import pipeAndFilter.*;
+import org.json.*; 
 public class TransactionProcessor extends Filter {
 	private Data data;
 
@@ -25,7 +25,8 @@ public class TransactionProcessor extends Filter {
 		return true; 
 	}
 	public boolean UpdateClientSold (long clientID, float amount) {
-		
+		Client client = this.data.getClients().get(clientID); 
+		client.setAccountBalance(client.getAccountBalance() - amount);
 		return true; 
 	}
 	public boolean CheckIn(long itemID) {
@@ -46,8 +47,22 @@ public class TransactionProcessor extends Filter {
 		this.data.getClients().putIfAbsent(id, client); 
 		return true; 
 	}
-	public boolean AddStockItem(){
-		
+	public boolean AddStockItem(String type, String title, float rentalPrice, long itemID, String additional){
+		if (type == "film") {
+			Film f = new Film(); 
+			f.setItemID(itemID);
+			f.setRentalPrice(rentalPrice);
+			f.setTitle(title);
+			f.setActeur(additional);
+			this.data.getStock().put(itemID,f); 
+		}else {
+			Jeux j = new Jeux(); 
+			j.setItemID(itemID);
+			j.setRentalPrice(rentalPrice);
+			j.setTitle(title);
+			j.setPlateforme(additional);
+			this.data.getStock().put(itemID,j); 
+		}
 		return true; 
 	}
 	public StockItem FindByTitle(String title) {
@@ -117,8 +132,48 @@ public class TransactionProcessor extends Filter {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
+		String input = "";
+		JSONObject transaction = null;
+		JSONObject answer = new JSONObject() ;
+		boolean result  = false; 
 		while(true) {
-			
+			input = this._dataINPipe.dataOUT(); 
+			try {
+				transaction = new JSONObject(input);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				switch((String)transaction.get("method")) {
+				case "AddCustomer":
+					 result = AddCustomer((String)transaction.get("name"),
+							(float)transaction.get("initialSold"),(long)transaction.get("id")); 
+					break; 
+				case "AddStockItem":
+					result = AddStockItem((String)transaction.get("type"),(String)transaction.get("title"),
+							(float)transaction.get("rentalPrice"), (long)transaction.get("itemID"),
+							(String)transaction.get("additional")); 
+					break;
+				case "CheckOut":
+					result = CheckOut((long)transaction.get("itemID"),(long)transaction.get("clientID"),
+							(Date)transaction.get("dueDate")); 
+					break;	
+				case "CheckIn": 
+					result = CheckIn((long)transaction.get("itemID")); 
+					break;
+				case "UpdateClientSold":
+					result = UpdateClientSold((long)transaction.get("clientID"),(float)transaction.get("amount"));
+					break;
+				default:
+					break; 
+				}
+				answer.put("response", result); 
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this._dataOUTPipe.dataIN(answer.toString());	
 		}
 		
 	}

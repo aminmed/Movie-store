@@ -78,7 +78,7 @@ public class QueryProcessor extends Filter {
 		case "add-item":
 			try {
 				json.put("method","AddStockItem");
-				json.put("itemID",(String) query.get("itemID"));
+				json.put("itemID",(long) query.get("itemID"));
 				json.put("rentalPrice",(float) query.get("rentalPrice"));
 				json.put("title",(String) query.get("title"));
 				json.put("type",(String) query.get("type"));
@@ -91,7 +91,7 @@ public class QueryProcessor extends Filter {
 		case "rent-item":
 			try {
 				json.put("method","CheckOut");
-				json.put("itemID",(String) query.get("itemID"));
+				json.put("itemID",(long) query.get("itemID"));
 				json.put("clientID",(long) query.get("clientID"));
 				json.put("dueDate",(String) query.get("dueDate"));
 			} catch (JSONException e) {
@@ -102,7 +102,7 @@ public class QueryProcessor extends Filter {
 		case "return-item":
 			try {
 				json.put("method","CheckIn");
-				json.put("itemID",(String) query.get("itemID"));
+				json.put("itemID",(long) query.get("itemID"));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -112,7 +112,7 @@ public class QueryProcessor extends Filter {
 			
 			try {
 				json.put("method","UpdateClientSold");
-				json.put("clientID",(String) query.get("clientID"));
+				json.put("clientID",(long) query.get("clientID"));
 				json.put("amount",(float) query.get("amount"));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
