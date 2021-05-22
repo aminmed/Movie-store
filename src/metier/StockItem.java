@@ -1,3 +1,4 @@
+package metier;
 
 public class StockItem {
 	private long itemID;

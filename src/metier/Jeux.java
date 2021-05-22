@@ -1,3 +1,5 @@
+package metier;
+import metier.StockItem;
 
 public class Jeux extends StockItem {
 

@@ -35,12 +35,22 @@ public class HomeController {
 
     @FXML
     void addArticle(ActionEvent event) {
-
+    	Stage stage = new Stage();
+    	AnchorPane root = null ; 
+    	try {
+		 root = FXMLLoader.load(getClass().getResource("ajouter_article.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}; 
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     void addClient(ActionEvent event) {
-    	Stage stage = (Stage) idAddClient.getScene().getWindow();
+    	Stage stage = new Stage();
     	AnchorPane root = null ; 
     	try {
 		 root = FXMLLoader.load(getClass().getResource("ajouter_client.fxml"));
@@ -55,27 +65,77 @@ public class HomeController {
 
     @FXML
     void addPenaltyClient(ActionEvent event) {
-
+    	Stage stage = new Stage();
+    	AnchorPane root = null ; 
+    	try {
+		 root = FXMLLoader.load(getClass().getResource("ajouter_amende.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}; 
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     void getClientSoldeAndDelayArticles(ActionEvent event) {
-
+    	Stage stage = new Stage();
+    	AnchorPane root = null ; 
+    	try {
+		 root = FXMLLoader.load(getClass().getResource("search_client_solde_retard.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}; 
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     void searchFilmByActor(ActionEvent event) {
-
+    	Stage stage = new Stage();
+    	AnchorPane root = null ; 
+    	try {
+		 root = FXMLLoader.load(getClass().getResource("search_film_by_actor.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}; 
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     void searchFilmsReservedByClient(ActionEvent event) {
-
+    	Stage stage = new Stage();
+    	AnchorPane root = null ; 
+    	try {
+		 root = FXMLLoader.load(getClass().getResource("search_film_loue_par_client.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}; 
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     void searchItemForLocation(ActionEvent event) {
-
+    	Stage stage = new Stage();
+    	AnchorPane root = null ; 
+    	try {
+		 root = FXMLLoader.load(getClass().getResource("search_articles_for_location.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}; 
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

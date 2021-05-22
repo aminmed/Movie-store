@@ -1,4 +1,4 @@
-
+package metier;
 public class Film extends StockItem {
 	private String acteur;
 

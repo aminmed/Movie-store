@@ -1,3 +1,5 @@
+package metier;
+import screens.GUI;
 import screens.UserInterface;
 public class main {
 
@@ -10,7 +12,9 @@ public class main {
                 javafx.application.Application.launch(UserInterface.class);
             }
         }.start();
-		
+        GUI  gui = new GUI(null, null); 
+		Thread th = new Thread(gui); 
+		th.start();
 
 	}
 
