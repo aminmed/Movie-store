@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawersStack?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXDrawersStack layoutX="-3.0" layoutY="-3.0" prefHeight="615.0" prefWidth="879.0" style="-fx-background-color: #2f2e49;" />
+      <Text fill="WHITE" layoutX="323.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Client" wrappingWidth="226.31369018554688">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+      <TextField fx:id="idClientName" layoutX="243.0" layoutY="233.0" prefHeight="46.0" prefWidth="403.0" promptText="Nom">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="idClientID" layoutX="244.0" layoutY="148.0" prefHeight="46.0" prefWidth="403.0" promptText="id">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="idClientSolde" layoutX="243.0" layoutY="316.0" prefHeight="46.0" prefWidth="403.0" promptText="Solde">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <JFXButton fx:id="idAddClient" buttonType="RAISED" layoutX="243.0" layoutY="424.0" onAction="#addClient" prefHeight="46.0" prefWidth="403.0" ripplerFill="#8180ac" style="-fx-background-color: #2f2e49;" text="Sauvgarder" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
