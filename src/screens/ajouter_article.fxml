@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawersStack?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXDrawersStack layoutX="-6.0" layoutY="-5.0" prefHeight="615.0" prefWidth="879.0" style="-fx-background-color: #2f2e49;" />
+      <Text fill="WHITE" layoutX="322.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Article" wrappingWidth="198.31369018554688">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+      <TextField fx:id="idArticleTtire" layoutX="243.0" layoutY="199.0" prefHeight="46.0" prefWidth="403.0" promptText="titre">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="idArticleID" layoutX="243.0" layoutY="125.0" prefHeight="46.0" prefWidth="403.0" promptText="id">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="idPrix" layoutX="243.0" layoutY="272.0" prefHeight="46.0" prefWidth="403.0" promptText="prix">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <JFXButton fx:id="idAddArticle" buttonType="RAISED" layoutX="243.0" layoutY="491.0" onAction="#addClient" prefHeight="46.0" prefWidth="403.0" ripplerFill="#8180ac" style="-fx-background-color: #2f2e49;" text="Sauvgarder" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXButton>
+      <TextField fx:id="idActeurOrPlateform" layoutX="243.0" layoutY="388.0" prefHeight="46.0" prefWidth="403.0" promptText="Acteur ou plateform">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Text fill="WHITE" layoutX="243.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type : " wrappingWidth="44.9996337890625">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <JFXRadioButton fx:id="idJeux" layoutX="540.0" layoutY="344.0" text="Jeux" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="type" />
+         </toggleGroup>
+      </JFXRadioButton>
+      <JFXRadioButton fx:id="idFilm" layoutX="365.0" layoutY="344.0" text="Film" textFill="WHITE" toggleGroup="$type">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXRadioButton>
+   </children>
+</AnchorPane>
