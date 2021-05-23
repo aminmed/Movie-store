@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawersStack?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXDrawersStack layoutX="-3.0" layoutY="-3.0" prefHeight="615.0" prefWidth="879.0" style="-fx-background-color: #2f2e49;" />
+      <TextField fx:id="searchByActorField" layoutX="156.0" layoutY="101.0" prefHeight="46.0" prefWidth="414.0" promptText="nom du client" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Text fill="WHITE" layoutX="176.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solde d'un client et les articles en retard" wrappingWidth="463.9136047363281">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+      <JFXButton fx:id="idSearchFilmButton" buttonType="RAISED" layoutX="598.0" layoutY="101.0" onAction="#searchSoldeAndRetardArticle" prefHeight="46.0" prefWidth="83.0" ripplerFill="#8180ac" style="-fx-background-color: #2f2e49;" text="chercher" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXListView layoutX="147.0" layoutY="208.0" prefHeight="352.0" prefWidth="540.0" />
+      <Text layoutX="152.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solde" wrappingWidth="268.1789245605469">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="424.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50000" wrappingWidth="260.1789245605469">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="156.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Dark Knight" wrappingWidth="414.4">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="156.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pirates of the Caribbean" wrappingWidth="414.4">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="156.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Captain Marvel" wrappingWidth="414.4">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Line endX="489.0" layoutX="198.0" layoutY="277.0" startX="-47.000030517578125" stroke="#2f2e49" strokeWidth="10.0" />
+   </children>
+</AnchorPane>
