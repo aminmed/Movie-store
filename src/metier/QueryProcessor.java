@@ -127,6 +127,26 @@ public class QueryProcessor extends Filter {
 				e.printStackTrace();
 			}
 			break;
+		case "search-items-location":
+			
+			try {
+				json.put("method","availableItems");
+				json.put("type",(String)query.get("type"));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case "search-filmsByActor":
+			
+			try {
+				json.put("method","NdByActor");
+				json.put("actor",(String)query.get("actor"));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		default:
 			json = null;
 			break; 

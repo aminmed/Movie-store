@@ -32,6 +32,9 @@ public class HomeController {
 
     @FXML
     private JFXButton idAddArticle;
+    
+    @FXML
+    private JFXButton idAddLocation; 
 
     @FXML
     void addArticle(ActionEvent event) {
@@ -129,6 +132,20 @@ public class HomeController {
     	AnchorPane root = null ; 
     	try {
 		 root = FXMLLoader.load(getClass().getResource("search_articles_for_location.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}; 
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    void addLocation(ActionEvent event) {
+    	Stage stage = new Stage();
+    	AnchorPane root = null ; 
+    	try {
+		 root = FXMLLoader.load(getClass().getResource("remettre_article.fxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

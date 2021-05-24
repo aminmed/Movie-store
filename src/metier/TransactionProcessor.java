@@ -50,7 +50,8 @@ public class TransactionProcessor extends Filter {
 		return true; 
 	}
 	public boolean AddStockItem(String type, String title, long rentalPrice, long itemID, String additional){
-		if (type == "film") {
+
+		if (type.contentEquals("film") ) {
 			Film f = new Film(); 
 			f.setItemID(itemID);
 			f.setRentalPrice(rentalPrice);
@@ -83,14 +84,16 @@ public class TransactionProcessor extends Filter {
 		}
 		return null; 
 	}
-	public Set<Film> NdByActor (String actor) {
+	public ArrayList<String> NdByActor (String actor) {
 		HashMap<Long,StockItem> stock = this.data.getStock(); // stock refers to stock hashmap
-		HashSet<Film> output = new HashSet<Film>(); 
+		ArrayList<String> output = new ArrayList<String>(); 
 		StockItem item = null; 
 		for(Map.Entry<Long, StockItem> entry : stock.entrySet()) {
 			item = entry.getValue(); 
 			if (item instanceof Film) {
-				if ( ((Film) item).getActeur() == actor) output.add((Film) item);    
+				if ( ((Film) item).getActeur().contentEquals(actor) ) {
+					output.add(Long.toString(item.getItemID()) + " - " + item.getTitle());    
+				}
 			}
 		}
 		return output; 
@@ -119,7 +122,23 @@ public class TransactionProcessor extends Filter {
 		}
 		return overdueItems; 
 	}
-	
+	public ArrayList <String> availableItems (String _type) {
+		StockItem item = null;  
+		HashMap<Long,StockItem> stock = this.data.getStock(); 
+		String type; 
+		ArrayList <String> listOfItems = new ArrayList<String>();
+		for(Map.Entry<Long, StockItem> entry : stock.entrySet()) {
+			item = entry.getValue(); 
+			if(this.IsCheckedOut(item.getItemID()) == false) 
+			{
+				if( item instanceof Film) type = "Film"; 
+				else type = "Jeu"; 
+				if (type.contentEquals(_type)) listOfItems.add(type +" - "+ item.getTitle());
+			}
+				 
+		}
+		return listOfItems; 
+	}
 	public Data _getData() {
 		return data;
 	}
@@ -154,31 +173,45 @@ public class TransactionProcessor extends Filter {
 					case "AddCustomer":
 						 result = AddCustomer((String)transaction.get("name"),
 								Long.valueOf(transaction.get("initialSold").toString()),Long.valueOf(transaction.get("id").toString())); 
+						 answer.put("response", result); 
 						break; 
 					case "AddStockItem":
 						result = AddStockItem((String)transaction.get("type"),(String)transaction.get("title"),
 								Long.valueOf(transaction.get("rentalPrice").toString()), Long.valueOf(transaction.get("itemID").toString()),
 								(String)transaction.get("additional")); 
+						answer.put("response", result); 
 						break;
 					case "CheckOut":
 						result = CheckOut((long)transaction.get("itemID"),(long)transaction.get("clientID"),
 								(Date)transaction.get("dueDate")); 
+						answer.put("response", result); 
 						break;	
 					case "CheckIn": 
 						result = CheckIn((long)transaction.get("itemID")); 
+						answer.put("response", result); 
 						break;
 					case "UpdateClientSold":
 						result = UpdateClientSold(Long.valueOf(transaction.get("clientID").toString()),Long.valueOf(transaction.get("amount").toString()));
+						answer.put("response", result); 
+						break;
+					case "availableItems":
+						ArrayList<String> arr =  availableItems((String)transaction.get("type")); 
+						JSONArray array = new JSONArray();
+						array.put(arr); 
+						answer.put("response",array); 
+						break;
+					case "NdByActor":
+						ArrayList<String> arrfilms =  NdByActor((String)transaction.get("actor")); 
+						JSONArray arrayfilms = new JSONArray();
+						arrayfilms.put(arrfilms); 
+						answer.put("response",arrayfilms); 
 						break;
 					default:
 						break; 
 					}
-					answer.put("response", result); 
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				System.out.println("from transaction !"+answer.toString() ); 
+					
+				} catch (JSONException e) {e.printStackTrace();}
+				System.out.println("from transaction to query !"+answer.toString() ); 
 				this._dataOUTPipe.dataIN(answer.toString());	
 		    	
 		    }catch(Exception e) {System.out.print(e);} 
