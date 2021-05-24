@@ -2,9 +2,14 @@ package metier;
 import java.util.*;
 
 public class Data {
-	private HashMap<Long,Client> clients = new HashMap <Long,Client>() ; 
-	private HashMap<Long,StockItem> stock =  new HashMap <Long,StockItem>(); 
-	private LinkedList<RentedItem> rentedItems = new LinkedList<RentedItem>();
+	private HashMap<Long,Client> clients = null; 
+	private HashMap<Long,StockItem> stock =  null; 
+	private LinkedList<RentedItem> rentedItems = null;
+	public Data () {
+		this.clients = new HashMap <Long,Client>() ; 
+		this.stock =  new HashMap <Long,StockItem>();
+		this.rentedItems = new LinkedList<RentedItem>();
+	}
 	public HashMap<Long,Client> getClients() {
 		return clients;
 	}

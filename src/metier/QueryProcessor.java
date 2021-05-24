@@ -27,30 +27,37 @@ public class QueryProcessor extends Filter {
 		JSONObject answerToUser = null; 
 		JSONObject answerFromServer = null; 
 		while(true) {
-			if(!this._dataINPipe.isEmpty()) {
-				
-				dataIn= this._dataINPipe.dataOUT(); 
-				try {
-					query = new JSONObject(dataIn);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			
+			try {
+				Thread.sleep(500);
+				if(!this._dataINPipe.isEmpty()) {
+					
+					dataIn= this._dataINPipe.dataOUT(); 
+					try {
+						query = new JSONObject(dataIn);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					transaction = TransactionBuilder(query);
+					this.dataToServer.dataIN(transaction.toString());
+					System.out.println("from query ! "+query.toString());
 				}
-				transaction = TransactionBuilder(query);
-				this.dataToServer.dataIN(transaction.toString());
-			}
-			if(!this.dataFromServer.isEmpty()) {
-				
-				dataIn= this.dataFromServer.dataOUT(); 
-				try {
-					answerFromServer = new JSONObject(dataIn);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(!this.dataFromServer.isEmpty()) {
+					
+					dataIn= this.dataFromServer.dataOUT(); 
+					try {
+						answerFromServer = new JSONObject(dataIn);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("from query ! "+answerFromServer.toString());
+					answerToUser = AnswerToUserBuilder(answerFromServer); 
+					this._dataOUTPipe.dataIN(answerToUser.toString());
 				}
-				answerToUser = AnswerToUserBuilder(answerFromServer); 
-				this._dataOUTPipe.dataIN(answerToUser.toString());
-			}
+			}catch(InterruptedException e){System.out.println(e);}  
 
 		}
 		
@@ -69,8 +76,8 @@ public class QueryProcessor extends Filter {
 			try {
 				json.put("method","AddCustomer");
 				json.put("name",(String) query.get("name"));
-				json.put("initialSold",(float) query.get("initialSold"));
-				json.put("id",(long) query.get("id"));
+				json.put("initialSold",((Number) query.get("initialSold")).longValue()); 
+				json.put("id",((Number) query.get("id")).longValue());
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -79,8 +86,8 @@ public class QueryProcessor extends Filter {
 		case "add-item":
 			try {
 				json.put("method","AddStockItem");
-				json.put("itemID",(long) query.get("itemID"));
-				json.put("rentalPrice",(float) query.get("rentalPrice"));
+				json.put("itemID",Long.valueOf(query.get("itemID").toString()));
+				json.put("rentalPrice",Long.valueOf(query.get("rentalPrice").toString()));
 				json.put("title",(String) query.get("title"));
 				json.put("type",(String) query.get("type"));
 				json.put("additional",(String) query.get("additional"));
@@ -92,8 +99,8 @@ public class QueryProcessor extends Filter {
 		case "rent-item":
 			try {
 				json.put("method","CheckOut");
-				json.put("itemID",(long) query.get("itemID"));
-				json.put("clientID",(long) query.get("clientID"));
+				json.put("itemID",Long.valueOf(query.get("itemID").toString()));
+				json.put("clientID",Long.valueOf(query.get("clientID").toString()));
 				json.put("dueDate",(String) query.get("dueDate"));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -103,7 +110,7 @@ public class QueryProcessor extends Filter {
 		case "return-item":
 			try {
 				json.put("method","CheckIn");
-				json.put("itemID",(long) query.get("itemID"));
+				json.put("itemID",Long.getLong(query.get("itemID").toString()));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -113,8 +120,8 @@ public class QueryProcessor extends Filter {
 			
 			try {
 				json.put("method","UpdateClientSold");
-				json.put("clientID",(long) query.get("clientID"));
-				json.put("amount",(float) query.get("amount"));
+				json.put("clientID",((Number) query.get("clientID")).longValue());
+				json.put("amount",((Number) query.get("amount")).longValue());
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -2,14 +2,14 @@ package metier;
 
 public class Client {
 	
-  private float accountBalance;
+  private long accountBalance;
   private String name;
   private long customerID;
   
-public float getAccountBalance() {
+public long getAccountBalance() {
 	return accountBalance;
 }
-public void setAccountBalance(float accountBalance) {
+public void setAccountBalance(long accountBalance) {
 	this.accountBalance = accountBalance;
 }
 public String getName() {

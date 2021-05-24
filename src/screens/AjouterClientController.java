@@ -23,7 +23,7 @@ public class AjouterClientController {
     @FXML
     void addClient(ActionEvent event) {
     	long id = Long.parseLong(idClientID.getText()); 
-    	float soldinitial = Float.parseFloat(idClientSolde.getText());
+    	long soldinitial = Long.parseLong(idClientSolde.getText());
     	String name = idClientName.getText(); 
     	JSONObject dataToSend = new JSONObject(); 
     	try {
@@ -36,7 +36,22 @@ public class AjouterClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-    	System.out.print(dataToSend.toString());
+    	GUI.requests.add(dataToSend);
+    	dataToSend = retrieveAnswer(); 
+    	System.out.println(dataToSend.toString()); 
     }
+    public  JSONObject retrieveAnswer () {
+    	while(GUI.answers.isEmpty()) {
+ 			try {
+ 				Thread.sleep(100); 
+ 			} catch (InterruptedException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			}
+    	}
+		return GUI.answers.poll();
+    	
+    }
+
 
 }

@@ -2,7 +2,7 @@ package metier;
 
 public class StockItem {
 	private long itemID;
-	private float rentalPrice;
+	private long rentalPrice;
 	private String title;
 	public long getItemID() {
 		return itemID;
@@ -10,10 +10,10 @@ public class StockItem {
 	public void setItemID(long itemID) {
 		this.itemID = itemID;
 	}
-	public float getRentalPrice() {
+	public long getRentalPrice() {
 		return rentalPrice;
 	}
-	public void setRentalPrice(float rentalPrice) {
+	public void setRentalPrice(long rentalPrice) {
 		this.rentalPrice = rentalPrice;
 	}
 	public String getTitle() {
