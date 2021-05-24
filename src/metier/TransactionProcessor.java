@@ -1,5 +1,6 @@
 package metier;
 import java.util.*;
+import java.text.SimpleDateFormat;
 import pipeAndFilter.*;
 import org.json.*;
 public class TransactionProcessor extends Filter {
@@ -46,11 +47,13 @@ public class TransactionProcessor extends Filter {
 		client.setName(name);
 		client.setCustomerID(id);
 		client.setAccountBalance(initialSold);
+		if(this.data.getClients().containsKey(id)) return false; 
 		this.data.getClients().putIfAbsent(id, client); 
 		return true; 
 	}
 	public boolean AddStockItem(String type, String title, long rentalPrice, long itemID, String additional){
-
+		
+		if(this.data.getStock().containsKey(itemID)) return false; 
 		if (type.contentEquals("film") ) {
 			Film f = new Film(); 
 			f.setItemID(itemID);
@@ -139,6 +142,20 @@ public class TransactionProcessor extends Filter {
 		}
 		return listOfItems; 
 	}
+	public ArrayList <String> filmsRentedByClient (long clientID) {
+		ArrayList <String> listOfItems = new ArrayList<String>();
+		
+		LinkedList<RentedItem> rentedItems = this.data.getRentedItems(); 
+		RentedItem item = null; 
+		for(int i=0; i< rentedItems.size(); i++) {
+			item = rentedItems.get(i); 
+			if ((item.getCustomerID() == clientID) && (this.data.getStock().get(item.getItemID()) instanceof Film )) {
+				
+				listOfItems.add(this.data.getStock().get(item.getItemID()).getTitle() +"  -  " +item.getDueDate().toString());   
+			}
+		}
+		return listOfItems; 
+	}
 	public Data _getData() {
 		return data;
 	}
@@ -182,12 +199,13 @@ public class TransactionProcessor extends Filter {
 						answer.put("response", result); 
 						break;
 					case "CheckOut":
-						result = CheckOut((long)transaction.get("itemID"),(long)transaction.get("clientID"),
-								(Date)transaction.get("dueDate")); 
+						Date date = new SimpleDateFormat("dd-mm-yyyy").parse((String)transaction.get("dueDate"));; 
+						result = CheckOut(Long.valueOf(transaction.get("itemID").toString()),Long.valueOf(transaction.get("clientID").toString()),
+								date); 
 						answer.put("response", result); 
 						break;	
 					case "CheckIn": 
-						result = CheckIn((long)transaction.get("itemID")); 
+						result = CheckIn(Long.valueOf(transaction.get("itemID").toString())); 
 						answer.put("response", result); 
 						break;
 					case "UpdateClientSold":
@@ -206,6 +224,13 @@ public class TransactionProcessor extends Filter {
 						arrayfilms.put(arrfilms); 
 						answer.put("response",arrayfilms); 
 						break;
+					case "filmsRentedByClient":
+						ArrayList<String> clientfilms =  filmsRentedByClient(Long.valueOf(transaction.get("clientID").toString())); 
+						JSONArray clientsarrayfilms = new JSONArray();
+						clientsarrayfilms.put(clientfilms); 
+						answer.put("response",clientsarrayfilms); 
+						break;
+						
 					default:
 						break; 
 					}

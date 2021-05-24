@@ -110,7 +110,8 @@ public class QueryProcessor extends Filter {
 		case "return-item":
 			try {
 				json.put("method","CheckIn");
-				json.put("itemID",Long.getLong(query.get("itemID").toString()));
+				json.put("itemID",Long.valueOf(query.get("itemID").toString()));
+				json.put("clientID",Long.valueOf(query.get("clientID").toString()));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -137,7 +138,7 @@ public class QueryProcessor extends Filter {
 				e.printStackTrace();
 			}
 			break;
-		case "search-filmsByActor":
+		case "search-filmsByActor": 
 			
 			try {
 				json.put("method","NdByActor");
@@ -146,6 +147,15 @@ public class QueryProcessor extends Filter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		case "search-filmsByClient": 
+		
+		try {
+			json.put("method","filmsRentedByClient");
+			json.put("clientID",((Number) query.get("clientID")).longValue());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 			break;
 		default:
 			json = null;
