@@ -1,6 +1,12 @@
 package metier;
 
-public class StockItem {
+import java.io.Serializable;
+
+public class StockItem implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2535128575023025409L;
 	private long itemID;
 	private long rentalPrice;
 	private String title;

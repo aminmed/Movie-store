@@ -13,5 +13,10 @@ public class UserInterface extends Application{
         stage.setScene(scene);
         stage.show();
 	}
+	@Override
+	public void stop () {
+		
+		System.exit(0); 
+	}
 	
 }

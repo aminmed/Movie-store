@@ -127,7 +127,7 @@ public class QueryProcessor extends Filter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			break;
+			break; 
 		case "search-items-location":
 			
 			try {

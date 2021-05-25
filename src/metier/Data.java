@@ -1,7 +1,14 @@
 package metier;
+import java.io.Serializable;
 import java.util.*;
 
-public class Data {
+public class Data  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1202679597455912695L;
+
+	
 	private HashMap<Long,Client> clients = null; 
 	private HashMap<Long,StockItem> stock =  null; 
 	private LinkedList<RentedItem> rentedItems = null;

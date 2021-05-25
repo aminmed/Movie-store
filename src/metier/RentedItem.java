@@ -1,7 +1,12 @@
 package metier;
+import java.io.Serializable;
 import java.util.*; 
-public class RentedItem {
+public class RentedItem implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7188653574867742256L;
 	private long customerID; 
 	private long itemID;
 	private Date dueDate;

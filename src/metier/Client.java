@@ -1,8 +1,14 @@
 package metier;
 
-public class Client {
+import java.io.Serializable;
+
+public class Client implements Serializable {
 	
-  private long accountBalance;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8550828925349296531L;
+private long accountBalance;
   private String name;
   private long customerID;
   

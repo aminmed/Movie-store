@@ -14,7 +14,7 @@ public class TransactionProcessor extends Filter {
     }
 	public boolean CheckOut (long item, long client, Date dueDate) {
 
-		if (IsCheckedOut(item)) return false;
+		if (IsCheckedOut(item)) return false; 
 		//checking client sold 
 		long sold = Solde(client); 
 		long rentalPrice = FindItemByID(item).getRentalPrice(); 

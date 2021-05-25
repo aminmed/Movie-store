@@ -1,5 +1,12 @@
 package metier;
-public class Film extends StockItem {
+
+import java.io.Serializable;
+
+public class Film extends StockItem implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1819580590201584431L;
 	private String acteur;
 
 	public String getActeur() {
