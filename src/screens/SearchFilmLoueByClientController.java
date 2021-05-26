@@ -29,7 +29,7 @@ public class SearchFilmLoueByClientController {
 			dataToSend.put("clientID", clientID);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); 
 		} 
     	GUI.requests.add(dataToSend); 
     	dataToSend = retrieveAnswer(); 

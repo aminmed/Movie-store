@@ -12,7 +12,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.SearchClientSoldeAndRetardController">
    <children>
       <JFXDrawersStack layoutX="-3.0" layoutY="-3.0" prefHeight="615.0" prefWidth="879.0" style="-fx-background-color: #2f2e49;" />
-      <TextField fx:id="searchByActorField" layoutX="156.0" layoutY="101.0" prefHeight="46.0" prefWidth="414.0" promptText="nom du client" style="-fx-background-color: #ffffff;">
+      <TextField fx:id="searchByClientField" layoutX="156.0" layoutY="101.0" prefHeight="46.0" prefWidth="414.0" promptText="Id du client" style="-fx-background-color: #ffffff;">
          <font>
             <Font size="14.0" />
          </font>
@@ -27,28 +27,14 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <JFXListView layoutX="147.0" layoutY="208.0" prefHeight="352.0" prefWidth="540.0" />
-      <Text layoutX="152.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solde" wrappingWidth="268.1789245605469">
+      <JFXListView fx:id="idListView" layoutX="147.0" layoutY="280.0" prefHeight="300.0" prefWidth="540.0" />
+      <JFXListView  layoutX="147.0" layoutY="208.0" prefHeight="60.0" prefWidth="540.0" />
+      <Text layoutX="152.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Balance" wrappingWidth="268.1789245605469">
          <font>
             <Font size="22.0" />
          </font>
       </Text>
-      <Text layoutX="424.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50000" wrappingWidth="260.1789245605469">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Text>
-      <Text layoutX="156.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Dark Knight" wrappingWidth="414.4">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Text>
-      <Text layoutX="156.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pirates of the Caribbean" wrappingWidth="414.4">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Text>
-      <Text layoutX="156.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Captain Marvel" wrappingWidth="414.4">
+      <Text fx:id="idSoldeField" layoutX="424.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="260.1789245605469">
          <font>
             <Font size="22.0" />
          </font>

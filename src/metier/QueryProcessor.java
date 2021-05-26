@@ -65,7 +65,7 @@ public class QueryProcessor extends Filter {
 	public JSONObject TransactionBuilder(JSONObject query) {
 		String operation = "";
 		JSONObject json = new JSONObject (); 
-		try {
+		try { 
 			 operation = (String) query.get("operation");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -106,7 +106,7 @@ public class QueryProcessor extends Filter {
 				// TODO Auto-generated catch block 
 				e.printStackTrace();
 			}
-			break;
+			break; 
 		case "return-item":
 			try {
 				json.put("method","CheckIn");
@@ -156,13 +156,22 @@ public class QueryProcessor extends Filter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			break;
+		break;
+		case "search-ClientSoldAndOverDueItems":
+			try {
+				json.put("method","overdueItems"); 
+				json.put("clientID",((Number) query.get("clientID")).longValue());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			break; 
 		default:
 			json = null;
 			break; 
 		}
 		return json; 
-	}
+	} 
 	public JSONObject AnswerToUserBuilder(JSONObject answer) {
 		return answer; 
 	}

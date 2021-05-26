@@ -13,7 +13,8 @@ public class mainApp {
 	private static Data data = new Data(); 
 	public static boolean debug = false; 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		
 		//Deserialization 
 		 ObjectInputStream in = null;
 		try {
@@ -51,6 +52,8 @@ public class mainApp {
 			    }  
 			}
 		);
+		//lancement des threads de l'application
+		
 		BlockingQueue fromGuiToQuery = new BlockingQueue(); 
 		BlockingQueue fromQueryToGui = new BlockingQueue();
 		BlockingQueue fromTransactionToQuery = new BlockingQueue(); 

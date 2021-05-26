@@ -1,6 +1,10 @@
 package metier;
 import java.util.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import pipeAndFilter.*;
 import org.json.*;
 public class TransactionProcessor extends Filter {
@@ -36,7 +40,7 @@ public class TransactionProcessor extends Filter {
 	public boolean CheckIn(long itemID) {
 		LinkedList<RentedItem> rentedItems = this.data.getRentedItems(); 
 		RentedItem item = null; 
-		for(int i=0; i< rentedItems.size(); i++) {
+		for(int i=0; i< rentedItems.size(); i++) { 
 			item = rentedItems.get(i); 
 			if (item.getItemID() == itemID) rentedItems.remove(item);  
 		}
@@ -58,7 +62,7 @@ public class TransactionProcessor extends Filter {
 		if (type.contentEquals("film") ) {
 			Film f = new Film(); 
 			f.setItemID(itemID);
-			f.setRentalPrice(rentalPrice);
+			f.setRentalPrice(rentalPrice); 
 			f.setTitle(title);
 			f.setActeur(additional);
 			this.data.getStock().put(itemID,f); 
@@ -116,13 +120,29 @@ public class TransactionProcessor extends Filter {
 		Client clnt = clients.get(customerId);
 		return clnt.getAccountBalance(); 
 	}
-	public Set<RentedItem> OverdueItems (Date currentDate) {
+	public ArrayList<String>  overdueItems (Long clientID) {
 		LinkedList<RentedItem> rentedItems = this.data.getRentedItems();
-		HashSet<RentedItem> overdueItems = new HashSet<RentedItem>(); 
+		ArrayList<String> overdueItems = new ArrayList<String> (); 
 		RentedItem item; 
+		String type = "";  
+		StockItem stockItem = null; 
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-mm-yyyy");  
+		LocalDateTime now = LocalDateTime.now(); 
+		Date currentDate = null; 
+		try {
+			currentDate = new SimpleDateFormat("dd-mm-yyyy").parse(dtf.format(now));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		for(int i=0; i< rentedItems.size(); i++) {
 			item = rentedItems.get(i); 
-			if(item.getDueDate().before(currentDate)) overdueItems.add(item); 
+			if((item.getDueDate().before(currentDate)) && (item.getCustomerID() == clientID)){
+				stockItem = FindItemByID(item.getCustomerID()); 
+				if (stockItem instanceof Film) type = "Film"; 
+				else type = "Jeu"; 
+				overdueItems.add(stockItem.getItemID() + " - " + type +" - " + stockItem.getTitle()+ " - "+stockItem.getRentalPrice() + "$"); 
+			}
 		}
 		return overdueItems; 
 	}
@@ -203,7 +223,7 @@ public class TransactionProcessor extends Filter {
 						answer.put("response", result); 
 						break;
 					case "CheckOut":
-						Date date = new SimpleDateFormat("dd-mm-yyyy").parse((String)transaction.get("dueDate"));; 
+						Date date = new SimpleDateFormat("dd-mm-yyyy").parse((String)transaction.get("dueDate")); 
 						result = CheckOut(Long.valueOf(transaction.get("itemID").toString()),Long.valueOf(transaction.get("clientID").toString()),
 								date); 
 						answer.put("response", result); 
@@ -234,7 +254,14 @@ public class TransactionProcessor extends Filter {
 						clientsarrayfilms.put(clientfilms); 
 						answer.put("response",clientsarrayfilms); 
 						break;
-						
+					case "overdueItems":
+						ArrayList<String> ovedueItems =  overdueItems(Long.valueOf(transaction.get("clientID").toString()));
+						long sold = Solde(Long.valueOf(transaction.get("clientID").toString())); 
+						JSONArray arrovedueItems = new JSONArray();
+						arrovedueItems.put(ovedueItems); 
+						answer.put("overdueItems",arrovedueItems);
+						answer.put("sold",sold);
+						break;
 					default:
 						break; 
 					}
