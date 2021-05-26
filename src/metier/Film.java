@@ -10,7 +10,7 @@ public class Film extends StockItem implements Serializable{
 	private String acteur;
 
 	public String getActeur() {
-		return acteur;
+		return acteur; 
 	}
 
 	public void setActeur(String acteur) {

@@ -39,10 +39,10 @@ public class QueryProcessor extends Filter {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
+					if(mainApp.debug) System.out.println("recieved by query :"+query.toString());
 					transaction = TransactionBuilder(query);
 					this.dataToServer.dataIN(transaction.toString());
-					System.out.println("from query ! "+query.toString());
+					
 				}
 				if(!this.dataFromServer.isEmpty()) {
 					
@@ -53,7 +53,7 @@ public class QueryProcessor extends Filter {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					System.out.println("from query ! "+answerFromServer.toString());
+					if(mainApp.debug) System.out.println("from query to transaction :"+answerFromServer.toString());
 					answerToUser = AnswerToUserBuilder(answerFromServer); 
 					this._dataOUTPipe.dataIN(answerToUser.toString());
 				}
@@ -103,7 +103,7 @@ public class QueryProcessor extends Filter {
 				json.put("clientID",Long.valueOf(query.get("clientID").toString()));
 				json.put("dueDate",(String) query.get("dueDate"));
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
+				// TODO Auto-generated catch block 
 				e.printStackTrace();
 			}
 			break;
@@ -140,15 +140,15 @@ public class QueryProcessor extends Filter {
 			break;
 		case "search-filmsByActor": 
 			
-			try {
+			try { 
 				json.put("method","NdByActor");
 				json.put("actor",(String)query.get("actor"));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		break; 
 		case "search-filmsByClient": 
-		
 		try {
 			json.put("method","filmsRentedByClient");
 			json.put("clientID",((Number) query.get("clientID")).longValue());

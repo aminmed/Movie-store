@@ -22,8 +22,8 @@ public class SearchFilmByActorController {
     	JSONObject dataToSend = new JSONObject(); 
     	try {
 			dataToSend.put("operation", "search-filmsByActor");
-			dataToSend.put("actor", actor);
-		} catch (JSONException e) {
+			dataToSend.put("actor", actor); 
+		} catch (JSONException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 

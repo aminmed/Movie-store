@@ -3,6 +3,8 @@ import java.util.*;
 import pipeAndFilter.Filter;
 import pipeAndFilter.Pipe;
 import org.json.*;
+
+import metier.mainApp;
 public class GUI extends Filter{
 	//requests :
 	//
@@ -18,7 +20,7 @@ public class GUI extends Filter{
 	public void run() {
 		execute(); 
 	}
-	@Override
+	@Override 
 	public void execute() {
 		// TODO Auto-generated method stub
 		JSONObject json = new JSONObject();
@@ -28,8 +30,8 @@ public class GUI extends Filter{
                 Thread.sleep(500);  
                 if (requests.isEmpty() == false) {
                 	json = recieveRequestFromUser(); 
-                	System.out.println("from GUI !"+ json.toString()); 
                 	this._dataOUTPipe.dataIN(json.toString());
+                	if(mainApp.debug) System.out.println("from GUI to Query :"+ json.toString()); 
                 }
                 if (this._dataINPipe.isEmpty() == false) {
                 	try {

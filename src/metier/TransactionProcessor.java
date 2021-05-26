@@ -25,6 +25,7 @@ public class TransactionProcessor extends Filter {
 		newRentedItem.setCustomerID(client);
 		newRentedItem.setItemID(item);
 		newRentedItem.setDueDate(dueDate);
+		this.data.getRentedItems().add(newRentedItem); 
 		return true; 
 	}
 	public boolean UpdateClientSold (long clientID, long amount) {
@@ -95,7 +96,7 @@ public class TransactionProcessor extends Filter {
 			item = entry.getValue(); 
 			if (item instanceof Film) {
 				if ( ((Film) item).getActeur().contentEquals(actor) ) {
-					output.add(Long.toString(item.getItemID()) + " - " + item.getTitle());    
+					output.add(Long.toString(item.getItemID()) + " - " + item.getTitle() + " - rentalPrice : "+ item.getRentalPrice()+"$");    
 				}
 			}
 		}
@@ -107,7 +108,7 @@ public class TransactionProcessor extends Filter {
 		for(int i=0; i< rentedItems.size(); i++) {
 			item = rentedItems.get(i); 
 			if (item.getItemID() == itemId) return true; 
-		}
+		} 
 		return false; 
 	}
 	public long Solde (long customerId) {
@@ -136,7 +137,10 @@ public class TransactionProcessor extends Filter {
 			{
 				if( item instanceof Film) type = "Film"; 
 				else type = "Jeu"; 
-				if (type.contentEquals(_type)) listOfItems.add(type +" - "+ item.getTitle());
+				if (type.contentEquals(_type) && (type.contentEquals("Film"))) 
+					listOfItems.add(item.getItemID() +" - "+ item.getTitle() + " - " +((Film) item).getActeur()+" - "+((Film) item).getRentalPrice() +"$");
+				if (type.contentEquals(_type) && (type.contentEquals("Jeu"))) 
+					listOfItems.add(item.getItemID() +" - "+ item.getTitle() + " - " +((Jeux) item).getPlateforme()+" - "+((Jeux) item).getRentalPrice() +"$");
 			}
 				 
 		}
@@ -178,7 +182,7 @@ public class TransactionProcessor extends Filter {
 		    try {
 		    	Thread.sleep(500);  
 		    	input = this._dataINPipe.dataOUT(); 
-		    	System.out.println("from transaction !"+ input); 
+		    	if(mainApp.debug) System.out.println("received by transaction :"+ input); 
 				try {
 					transaction = new JSONObject(input);
 				} catch (JSONException e) {
@@ -220,7 +224,7 @@ public class TransactionProcessor extends Filter {
 						break;
 					case "NdByActor":
 						ArrayList<String> arrfilms =  NdByActor((String)transaction.get("actor")); 
-						JSONArray arrayfilms = new JSONArray();
+						JSONArray arrayfilms = new JSONArray(); 
 						arrayfilms.put(arrfilms); 
 						answer.put("response",arrayfilms); 
 						break;
@@ -236,7 +240,7 @@ public class TransactionProcessor extends Filter {
 					}
 					
 				} catch (JSONException e) {e.printStackTrace();}
-				System.out.println("from transaction to query !"+answer.toString() ); 
+				if(mainApp.debug) System.out.println("from transaction to query :"+answer.toString() ); 
 				this._dataOUTPipe.dataIN(answer.toString());	
 		    	
 		    }catch(Exception e) {System.out.print(e);} 
